@@ -1,0 +1,38 @@
+<template>
+	<view>
+		<view class="health-block">
+			<view class="health-line">
+				<view>{{}}</view>
+				<view>{{}}</view>
+			</view>
+			<view class="flex-center">
+				<view>
+					<image></image>
+					<view>{{}}</view>
+				</view>
+			</view>
+			<view class="flex-center">
+				<button class="health-btn">寻找教练</button>
+				<button class="health-btn">报告分享</button>
+			</view>
+		</view>
+		<view class="health-block">
+			<web-view src="https://view.officeapps.live.com/op/view.aspx?src=http://img.luckyray.cn/health_test.xlsm"></web-view>
+		</view>
+	</view>
+</template>
+
+<script>
+export default {
+		data() {
+		return {
+		}
+		},
+		methods:{
+		
+		}
+}
+</script>
+
+<style lang="scss">
+</style>

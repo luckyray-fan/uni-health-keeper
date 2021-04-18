@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "comment-tab-nav-default": "/pages/mine/comment-tab-nav-default",
+    "tab-nav": "/my-components/tab-nav/index",
+    "comment": "/my-components/comment/index"
+  }
+}

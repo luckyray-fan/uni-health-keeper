@@ -1,0 +1,153 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/mine/index",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		},
+		{
+			"path": "pages/mine/info",
+			"style": {
+				"navigationBarTitleText": "账号设置"
+			}
+		},
+		{
+			"path": "pages/goods/index",
+			"style": {
+				"navigationBarTitleText": "产品购买",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/cart/index",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		},
+		{
+			"path": "pages/goods/info",
+			"style": {
+				"navigationBarTitleText": "产品详情",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/order/index",
+			"style": {
+				"navigationBarTitleText": "订单确认"
+			}
+		},
+		{
+			"path": "pages/mine/use_product",
+			"style": {
+				"navigationBarTitleText": "可用产品查看"
+			}
+		},
+		{
+			"path": "pages/mine/record/index",
+			"style": {
+				"navigationBarTitleText": "记录查看"
+			}
+		},
+		{
+			"path": "pages/mine/order",
+			"style": {
+				"navigationBarTitleText": "我的订单"
+			}
+		},
+		{
+			"path": "pages/coach/index",
+			"style": {
+				"navigationBarTitleText": "教练端"
+			}
+		},
+		{
+			"path": "pages/service/index",
+			"style": {
+				"navigationBarTitleText": "服务预约",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/service/new_member",
+			"style": {
+				"navigationBarTitleText": "体验服务"
+			}
+		},
+		{
+			"path": "pages/archive/index",
+			"style": {
+				"navigationBarTitleText": "健康档案"
+			}
+		},
+		{
+			"path": "pages/archive/plan",
+			"style": {
+				"navigationBarTitleText": "健康计划"
+			}
+		},
+		{
+			"path": "pages/service/sport",
+			"style": {
+				"navigationBarTitleText": "运动处方"
+			}
+		},
+		{
+			"path": "pages/archive/report",
+			"style": {
+				"navigationBarTitleText": "报告查看"
+			}
+		},
+		{
+			"path": "pages/mine/comment",
+			"style": {
+				"navigationBarTitleText": "我的评价"
+			}
+		}
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "健康管家",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+    "tabBar": {
+    	"color": "#BBBBBB",
+    	"selectedColor": "#212121",
+    	"borderStyle": "black",
+    	"backgroundColor": "#ffffff",
+    	"list": [
+            {
+            	"pagePath": "pages/index/index",
+            	"iconPath": "static/tabbar/home_selected.png",
+            	"selectedIconPath": "static/tabbar/home.png",
+            	"text": "首页"
+            },			
+			{
+				"pagePath": "pages/goods/index",
+				"iconPath": "static/tabbar/spu_selected.png",
+				"selectedIconPath": "static/tabbar/spu.png",
+				"text": "产品购买"
+			},
+            {
+            	"pagePath": "pages/mine/index",
+            	"iconPath": "static/tabbar/mine_selected.png",
+            	"selectedIconPath": "static/tabbar/mine.png",
+            	"text": "个人中心"
+            }
+        ]
+    }
+}

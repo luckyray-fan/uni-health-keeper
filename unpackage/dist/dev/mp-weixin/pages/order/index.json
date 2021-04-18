@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "订单确认",
+  "usingComponents": {
+    "order-item": "/my-components/order-item/index"
+  }
+}

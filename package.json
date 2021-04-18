@@ -1,0 +1,17 @@
+{
+  "name": "health_keeper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "luch-request": "^3.0.5",
+    "vuex-persistedstate": "^4.0.0-beta.3",
+    "weapp-cookie": "^1.4.6"
+  }
+}

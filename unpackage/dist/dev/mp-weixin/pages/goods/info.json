@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "产品详情",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-swiper-dot": "/components/uni-swiper-dot/uni-swiper-dot",
+    "count": "/my-components/count/index",
+    "comment": "/my-components/comment/index"
+  }
+}

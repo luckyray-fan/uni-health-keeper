@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "产品购买",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-easyinput": "/components/uni-easyinput/uni-easyinput",
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "my-swiper": "/my-components/my-swiper/my-swiper",
+    "no-data": "/my-components/no-data/index"
+  }
+}
