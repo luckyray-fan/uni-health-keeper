@@ -36,7 +36,7 @@
 				可获积分
 			</view>
 			<view>
-				{{spu.spu_data.credit}}积分
+				{{spu.spu_data.credit || 0 }}积分
 			</view>
 		</view>
 		<view class="health-block">
@@ -105,22 +105,22 @@
 			await this.getSpu(this.spu_id);
 			uni.stopPullDownRefresh()
 		},
-		computed:{
-			showCommentList(){
-				if(this.commentLen === -1)
+		computed: {
+			showCommentList() {
+				if (this.commentLen === -1)
 					return this.spu.comments
-				return this.spu.comments.slice(0,this.commentLen)
+				return this.spu.comments.slice(0, this.commentLen)
 			}
 		},
 		methods: {
-			showComment(){
+			showComment() {
 				this.commentLen = -1;
 			},
 			async getSpu(spu_id) {
 				return this.http.get(HEALTH_API.spu, {
 					params: {
 						spu_id,
-						get_comment:1
+						get_comment: 1
 					}
 				}).then(({
 					data: {
@@ -128,12 +128,16 @@
 						code
 					}
 				}) => {
-					this.spu = data[0];
+					this.spu = {
+						...data[0],
+						num: 1
+					};
 				})
 			},
 			navigateOrder() {
+				const tem = [{id: this.spu_id, num: this.spu.num}];
 				uni.navigateTo({
-					url: '/pages/order/index'
+					url: `/pages/order/index?spuIdList=${JSON.stringify(tem)}`
 				})
 			},
 			countChange(num) {

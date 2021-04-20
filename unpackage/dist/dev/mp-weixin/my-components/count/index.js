@@ -159,7 +159,11 @@ var _default =
   props: {
     num: {
       type: Number,
-      default: 1 } },
+      default: 1 },
+
+    disable: {
+      type: Boolean,
+      default: false } },
 
 
   data: function data() {
@@ -169,10 +173,14 @@ var _default =
   },
   methods: {
     minus: function minus(e) {
+      if (this.disable)
+      return;
       this.temNum = this.temNum - 1 || 1;
       this.$emit('change', this.temNum);
     },
     add: function add(e) {
+      if (this.disable)
+      return;
       this.temNum = this.temNum + 1;
       this.$emit('change', this.temNum);
     } } };exports.default = _default;

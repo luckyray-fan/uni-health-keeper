@@ -2,6 +2,7 @@
   "navigationBarTitleText": "服务预约",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "uni-calendar": "/components/uni-calendar/uni-calendar"
+    "uni-calendar": "/components/uni-calendar/uni-calendar",
+    "uni-popup": "/components/uni-popup/uni-popup"
   }
 }

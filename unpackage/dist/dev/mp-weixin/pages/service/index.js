@@ -97,6 +97,9 @@ try {
   components = {
     uniCalendar: function() {
       return Promise.all(/*! import() | components/uni-calendar/uni-calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-calendar/uni-calendar")]).then(__webpack_require__.bind(null, /*! @/components/uni-calendar/uni-calendar.vue */ 250))
+    },
+    uniPopup: function() {
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 217))
     }
   }
 } catch (e) {
@@ -120,9 +123,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = JSON.parse(
-    _vm.service.apparatusArr[_vm.selectApparatus].apparatus_time
-  )
+  var l0 = _vm.__map(_vm.selectApparatusTime, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = _vm.disable_time.some(function(i) {
+      return i[0] == item[0]
+    })
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -204,6 +216,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
 var _api = _interopRequireDefault(__webpack_require__(/*! @/common/api.js */ 71));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   data: function data() {
@@ -233,22 +253,72 @@ var _api = _interopRequireDefault(__webpack_require__(/*! @/common/api.js */ 71)
                 _this.getService(_this.service_id));case 2:
               uni.stopPullDownRefresh();case 3:case "end":return _context.stop();}}}, _callee);}))();
   },
+  computed: {
+    disable_time: function disable_time() {var _this2 = this;
+      var today = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
+      var hour = new Date().getHours();
+      var res = [];
+      if (this.reserve_date === today) {
+        res = this.selectApparatusTime.filter(function (i) {
+          if (i[0] <= hour)
+          return true;
+        });
+      }
+      this.service.reserve[this.selectApparatus].map(function (i) {
+        if (i.reserve_date === _this2.reserve_date) {
+          res.push(i.reserve_time);
+        }
+      });
+      return res;
+    },
+    selectApparatusTime: function selectApparatusTime() {
+      if (!this.service.apparatusArr) return [[]];
+      return JSON.parse(this.service.apparatusArr[this.selectApparatus].apparatus_time);
+    } },
+
   methods: {
+    handleCannotSelect: function handleCannotSelect() {
+      this.$refs.popup.open();
+    },
+    handleReserve: function handleReserve() {
+      this.http.post(_api.default.reserve, {
+        reserve_date: this.reserve_date,
+        reserve_time: this.selectApparatusTime[this.selectTime],
+        reserve_apparatus: this.service.apparatusArr[this.selectApparatus].apparatus_id }).
+      then(function (_ref)
+
+
+
+
+      {var _ref$data = _ref.data,data = _ref$data.data,code = _ref$data.code;
+        if (code === 0) {
+          uni.showToast({
+            title: '预约成功' });
+
+          setTimeout(function (i) {
+            uni.navigateTo({
+              url: '/pages/mine/order?cur=3' });
+
+          }, 2000);
+        }
+
+      });
+    },
     confirm: function confirm(e) {
       this.reserve_date = e.fulldate;
     },
-    getService: function getService(service_id) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:return _context2.abrupt("return",
-                _this2.http.get(_api.default.service, {
+    getService: function getService(service_id) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:return _context2.abrupt("return",
+                _this3.http.get(_api.default.service, {
                   params: {
                     service_id: service_id } }).
 
-                then(function (_ref)
+                then(function (_ref2)
 
 
 
 
-                {var _ref$data = _ref.data,data = _ref$data.data,code = _ref$data.code;
-                  _this2.service = data;
+                {var _ref2$data = _ref2.data,data = _ref2$data.data,code = _ref2$data.code;
+                  _this3.service = data;
                 }));case 1:case "end":return _context2.stop();}}}, _callee2);}))();
     },
     openCalendar: function openCalendar() {

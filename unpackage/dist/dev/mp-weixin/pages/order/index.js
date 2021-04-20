@@ -128,7 +128,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var orderItem = function orderItem() {__webpack_require__.e(/*! require.ensure | my-components/order-item/index */ "my-components/order-item/index").then((function () {return resolve(__webpack_require__(/*! @/my-components/order-item/index.vue */ 245));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 67));
 
 
 
@@ -152,12 +152,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _api = _interopRequireDefault(__webpack_require__(/*! ../../common/api.js */ 71));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var orderItem = function orderItem() {__webpack_require__.e(/*! require.ensure | my-components/order-item/index */ "my-components/order-item/index").then((function () {return resolve(__webpack_require__(/*! @/my-components/order-item/index.vue */ 245));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
     orderItem: orderItem },
 
   data: function data() {
     return {
+      spuIdList: [],
       spuList: [{
         spu_name: '成人全套套餐评估',
         spu_pic: 'https://img13.360buyimg.com/n7/jfs/t1/27652/18/12464/928612/5c985ce1Eaa45fcdb/1fb4aa796250c8b6.png',
@@ -167,6 +169,11 @@ __webpack_require__.r(__webpack_exports__);
         selected: false }] };
 
 
+  },
+  onLoad: function onLoad(opt) {
+    console.log(opt);
+    this.spuIdList = JSON.parse(opt.spuIdList);
+    this.getSpuList();
   },
   computed: {
     sum: function sum() {
@@ -185,16 +192,63 @@ __webpack_require__.r(__webpack_exports__);
     } },
 
   methods: {
+    getSpuList: function getSpuList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:return _context.abrupt("return",
+                _this.http.get(_api.default.spu_ids, {
+                  params: {
+                    spuIdList: _this.spuIdList.map(function (i) {return i.id;}) } }).
 
-    submitOrder: function submitOrder() {
-      uni.showToast({
-        title: '支付成功, 即将跳转至我的订单' });
+                then(function (_ref)
 
-      setTimeout(function (i) {
-        uni.navigateTo({
-          url: '/pages/mine/order' },
-        2000);
-      });
+
+
+
+                {var _ref$data = _ref.data,data = _ref$data.data,code = _ref$data.code;
+                  data.map(function (i) {
+                    i.num = _this.spuIdList.find(function (j) {return j.id == i.spu_id;}).num;
+                  });
+                  _this.spuList = data;
+                }));case 1:case "end":return _context.stop();}}}, _callee);}))();
+    },
+    submitOrder: function submitOrder() {var _this2 = this;
+      uni.showModal({
+        title: '提示',
+        content: '确认提交订单?',
+        success: function success(res) {
+          if (res.confirm) {
+            _this2.http.post(_api.default.order, {
+              order_price: _this2.sumPrice,
+              order_data: {
+                spuList: _this2.spuList.map(function (i) {
+                  return {
+                    id: i.spu_id,
+                    num: i.num,
+                    price: i.spu_price,
+                    name: i.spu_name };
+
+                }) } }).
+
+            then(function (_ref2)
+
+
+
+
+            {var _ref2$data = _ref2.data,data = _ref2$data.data,code = _ref2$data.code;
+              if (code === 0) {
+                uni.showToast({
+                  title: '订单提交成功, 即将跳转至我的订单' });
+
+                setTimeout(function (i) {
+                  uni.navigateTo({
+                    url: '/pages/mine/order' });
+
+                }, 2000);
+              }
+            });
+
+          }
+        } });
+
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

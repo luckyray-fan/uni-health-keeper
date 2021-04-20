@@ -216,7 +216,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _api = _interopRequireDefault(__webpack_require__(/*! @/common/api.js */ 71));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var count = function count() {__webpack_require__.e(/*! require.ensure | my-components/count/index */ "my-components/count/index").then((function () {return resolve(__webpack_require__(/*! @/my-components/count/index.vue */ 231));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var comment = function comment() {__webpack_require__.e(/*! require.ensure | my-components/comment/index */ "my-components/comment/index").then((function () {return resolve(__webpack_require__(/*! @/my-components/comment/index.vue */ 302));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _api = _interopRequireDefault(__webpack_require__(/*! @/common/api.js */ 71));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var count = function count() {__webpack_require__.e(/*! require.ensure | my-components/count/index */ "my-components/count/index").then((function () {return resolve(__webpack_require__(/*! @/my-components/count/index.vue */ 231));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var comment = function comment() {__webpack_require__.e(/*! require.ensure | my-components/comment/index */ "my-components/comment/index").then((function () {return resolve(__webpack_require__(/*! @/my-components/comment/index.vue */ 302));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 {
   components: {
@@ -283,12 +283,16 @@ var _api = _interopRequireDefault(__webpack_require__(/*! @/common/api.js */ 71)
 
 
                 {var _ref$data = _ref.data,data = _ref$data.data,code = _ref$data.code;
-                  _this2.spu = data[0];
+                  _this2.spu = _objectSpread(_objectSpread({},
+                  data[0]), {}, {
+                    num: 1 });
+
                 }));case 1:case "end":return _context2.stop();}}}, _callee2);}))();
     },
     navigateOrder: function navigateOrder() {
+      var tem = [{ id: this.spu_id, num: this.spu.num }];
       uni.navigateTo({
-        url: '/pages/order/index' });
+        url: "/pages/order/index?spuIdList=".concat(JSON.stringify(tem)) });
 
     },
     countChange: function countChange(num) {

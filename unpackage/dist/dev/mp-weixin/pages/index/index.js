@@ -243,7 +243,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     toLogin: function toLogin() {
       uni.navigateTo({
-        url: '/pages/service/index?service_id=1' });
+        url: '/pages/order/index?spuIdList=[{"id":"2","num":1}]' });
 
       // uni.switchTab({
       // 	url: '/pages/goods/index'
