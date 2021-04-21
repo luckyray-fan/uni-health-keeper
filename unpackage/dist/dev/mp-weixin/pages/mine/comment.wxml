@@ -1,1 +1,0 @@
-<view><tab-nav generic:scoped-slots-default="comment-tab-nav-default" data-vue-generic="scoped" vue-id="757b2c6a-1" tabList="{{tabList}}" dataList="{{commentList}}" bind:__l="__l" vue-slots="{{['default']}}"></tab-nav></view>

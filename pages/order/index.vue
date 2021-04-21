@@ -88,14 +88,7 @@
 							this.http.post(HEALTH_API.order, {
 								order_price: this.sumPrice,
 								order_data: {
-									spuList: this.spuList.map(i=>{
-										return {
-											id: i.spu_id,
-											num: i.num,
-											price: i.spu_price,
-											name: i.spu_name
-										}
-									})
+									spuList: this.spuList
 								}
 							}).then(({
 								data: {

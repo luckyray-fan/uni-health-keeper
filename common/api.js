@@ -4,7 +4,11 @@ const HEALTH_API = {
 	spu_ids: 'spu/ids',
 	service: 'service/id',
 	reserve: 'reserve/',
-	order: 'order/'
+	order: 'order/',
+	order_list: 'order/user',
+	order_pay: 'order/pay',
+	reserve_list: 'reserve/list',
+	record_list: 'record/list'
 }
 
 Object.keys(HEALTH_API).map(i => {

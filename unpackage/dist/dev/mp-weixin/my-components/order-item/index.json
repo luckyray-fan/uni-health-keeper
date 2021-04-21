@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "uni-popup": "/components/uni-popup/uni-popup",
-    "count": "/my-components/count/index"
-  },
-  "component": true
-}

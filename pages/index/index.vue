@@ -84,9 +84,9 @@
 				this.current = e.detail.current;
 			},
 			toLogin: () => {
-				uni.navigateTo({
-				    url: '/pages/order/index?spuIdList=[{"id":"2","num":1}]'
-				});
+				// uni.navigateTo({
+				//     url: '/pages/mine/order'
+				// });
 				// uni.switchTab({
 				// 	url: '/pages/goods/index'
 				// })

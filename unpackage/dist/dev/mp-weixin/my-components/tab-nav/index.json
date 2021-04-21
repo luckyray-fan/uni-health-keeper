@@ -1,9 +1,0 @@
-{
-  "usingComponents": {
-    "wuc-tab": "/components/wuc-tab/wuc-tab"
-  },
-  "component": true,
-  "componentGenerics": {
-    "scoped-slots-default": true
-  }
-}

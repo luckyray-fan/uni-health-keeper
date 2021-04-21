@@ -52,6 +52,16 @@ page{
 	font-size: 12px;
 	color: gray;
 }
+.health-spu-right {
+		position: relative;
+
+		>view {
+			position: absolute;
+			bottom: 0;
+			left: -12px;
+			
+		}	
+	}
 .health-line-pic{
 	height: 100px;
 	overflow: hidden;
@@ -87,6 +97,10 @@ page{
 	&40{
 		width: 40px;
 		height: 40px;
+	}
+	&30{
+		width: 30px;
+		height: 30px;
 	}
 }
 .health-flex{
@@ -141,6 +155,10 @@ page{
 	background-color: #64EDAC;
 	border-radius: 20px;
 	margin: 8px;
+}
+.health-btn-no-margin{
+	@extend .health-btn;
+	margin:0;
 }
 .health-btn-200 {
 	width: 200px;

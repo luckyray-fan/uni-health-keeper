@@ -104,16 +104,7 @@
 		height: $image-size;
 	}
 
-	.health-spu-right {
-		position: relative;
-
-		>view {
-			position: absolute;
-			bottom: 0;
-			left: -12px;
-			
-		}	
-	}
+	
 
 	.health-bottom {
 

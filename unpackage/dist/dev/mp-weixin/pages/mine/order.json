@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "我的订单",
-  "usingComponents": {
-    "wuc-tab": "/components/wuc-tab/wuc-tab",
-    "order-item": "/my-components/order-item/index"
-  }
-}

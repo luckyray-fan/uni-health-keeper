@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "我的评价",
-  "usingComponents": {
-    "tab-nav": "/my-components/tab-nav/index",
-    "comment": "/my-components/comment/index"
-  }
-}
