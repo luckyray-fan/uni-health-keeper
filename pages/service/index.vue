@@ -50,6 +50,7 @@
 	export default {
 		data() {
 			return {
+				record_id: 0,
 				reserve_date: '选择日期>',
 				service_id: -1,
 				service: {
@@ -69,6 +70,7 @@
 		},
 		onLoad(opt) {
 			this.service_id = opt.service_id;
+			this.record_id = opt.record_id;
 			this.getService(opt.service_id)
 		},
 		async onPullDownRefresh() {
@@ -106,7 +108,9 @@
 				this.http.post(HEALTH_API.reserve, {
 					reserve_date: this.reserve_date,
 					reserve_time: this.selectApparatusTime[this.selectTime],
-					reserve_apparatus: this.service.apparatusArr[this.selectApparatus].apparatus_id
+					reserve_apparatus: this.service.apparatusArr[this.selectApparatus].apparatus_id,
+					reserve_record: this.record_id,
+					reserve_service: this.service_id
 				}).then(({
 					data: {
 						data,

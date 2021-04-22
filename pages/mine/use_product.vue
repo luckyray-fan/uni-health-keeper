@@ -53,9 +53,23 @@
 			showReserve(item){
 				const services = Object.values(item.service_status)
 				uni.showActionSheet({
-				    itemList: services.map(i=>i.service_name),
+				    itemList: services.map(i=>{
+						if(i.status === SERVICE_STATUS.reserved){
+							return i.service_name+ '(已使用)'
+						}
+						if(i.status === SERVICE_STATUS.reserving){
+							return i.service_name+ '(预约中)'
+						}
+						return i.service_name
+					}),
 				    success: (res)=> {
-				        this.navigateService(services[res.tapIndex].service_id)
+						if(services[res.tapIndex].status === SERVICE_STATUS.not_reserve)
+							this.navigateService(services[res.tapIndex].service_id, item.record_id)
+						else
+							uni.showToast({
+								title: '该服务不可用',
+								icon:null
+							})
 				    },
 				    fail: function (res) {
 				        console.log(res.errMsg);
@@ -75,9 +89,9 @@
 						return true
 				}).length
 			},
-			navigateService(id){
+			navigateService(id, record_id){
 				uni.navigateTo({
-					url: '/pages/service/index?service_id'+id
+					url: `/pages/service/index?service_id=${id}&record_id=${record_id}`
 				})
 			}
 		}

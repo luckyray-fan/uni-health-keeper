@@ -8,6 +8,7 @@ const HEALTH_API = {
 	order_list: 'order/user',
 	order_pay: 'order/pay',
 	reserve_list: 'reserve/list',
+	reserve_cancel: 'reserve/cancel',
 	record_list: 'record/list'
 }
 

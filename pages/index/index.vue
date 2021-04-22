@@ -2,13 +2,18 @@
 	<view>
 		<view class="health-block">
 			<view class="health-home-top">
-				<view>{{liveData.city}}</view>
-				<view>{{liveData.weather}}</view>
+				<view>
+					<image mode="widthFix" src="../../static/map.png" class="health-icon"></image>{{liveData.city}}
+				</view>
+				<view>
+					<image mode="widthFix" :src="weatherPic" class="health-icon"></image>
+					{{liveData.weather}}
+				</view>
 				<view>{{liveData.temperature}}℃</view>
 			</view>
 		</view>
 		<my-swiper></my-swiper>
-		<view class="health-block justify-around" >
+		<view class="health-block justify-around">
 			<uni-grid :column="3" :showBorder="false" :square="false" @change="gridItemClick">
 				<uni-grid-item class="health-home-grid-item flex-center" index="0">
 					<image src="http://img.luckyray.cn/time.png" class="health-home-grid-item-img"></image>
@@ -38,7 +43,7 @@
 <script>
 	import mySwiper from '@/my-components/my-swiper/my-swiper.vue'
 	export default {
-		components:{
+		components: {
 			mySwiper
 		},
 		data() {
@@ -66,8 +71,20 @@
 		onShow() {
 			this.toLogin()
 		},
+		computed: {
+			weatherPic() {
+				if (this.liveData.weather) {
+					if (this.liveData.weather.includes('晴'))
+						return '../../static/sun.png'
+					if (this.liveData.weather.includes('雨'))
+						return '../../static/umbrella.png'
+					if (this.liveData.weather.includes('阴'))
+						return '../../static/cloud.png'
+				}
+			}
+		},
 		methods: {
-			gridItemClick(idx){
+			gridItemClick(idx) {
 				idx = idx.detail.index;
 				const idxToUrl = {
 					0: '/pages/mine/use_product',
@@ -77,7 +94,7 @@
 					4: '/pages/archive/plan',
 				}
 				uni.navigateTo({
-					url:idxToUrl[idx]
+					url: idxToUrl[idx]
 				})
 			},
 			change(e) {
@@ -95,19 +112,23 @@
 	}
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 	$image-size: 60px;
-	.swiper-box{
+
+	.swiper-box {
 		width: 100%;
-		image{
+
+		image {
 			width: 100%;
 		}
 	}
-	.justify-around{
-		 /deep/ .uni-grid{
+
+	.justify-around {
+		/deep/ .uni-grid {
 			justify-content: space-around;
 		}
 	}
+
 	.health-home-top {
 		display: flex;
 		justify-content: space-around;

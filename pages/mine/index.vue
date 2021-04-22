@@ -124,6 +124,8 @@
 					2: '/pages/mine/order?cur=2',
 					3: '/pages/mine/order?cur=3',
 					4: '/pages/mine/comment',
+					9: '/pages/reserve/index?cur=0',
+					10: '/pages/reserve/index?cur=1',
 				}
 				uni.navigateTo({
 					url: idxToUrl[idx]

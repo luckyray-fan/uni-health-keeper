@@ -118,6 +118,13 @@
 			"style": {
 				"navigationBarTitleText": "我的评价"
 			}
+		},
+		{
+			"path": "pages/reserve/index",
+			"style": {
+				"navigationBarTitleText": "预约记录",
+				"enablePullDownRefresh": true
+			}
 		}
     ],
 	"globalStyle": {

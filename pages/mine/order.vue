@@ -35,7 +35,7 @@
 							</view>
 							<view class="flex-4">预约项目</view>
 							<view class="flex-4">开始时间</view>
-							<view class="flex-1">操作</view>
+							<!-- <view class="flex-1">操作</view> -->
 						</view>
 						<block v-for="(i, idx) in reserveList" :key="idx">
 							<view class="health-flex health-block text-center">
@@ -43,13 +43,13 @@
 									<radio color="#64EDAC" :checked="i.selected" @click="itemCheck" :data-index="idx">
 									</radio>
 								</view>
-								<view class="flex-4">{{i.spu_name}}</view>
-								<view class="flex-4">{{i.reserve_date}}</view>
-								<view class="flex-1">详情</view>
+								<view class="flex-4">{{i.service.service_name}}</view>
+								<view class="flex-4">{{convertReserveTime(i)}}</view>
+								<!-- <view class="flex-1">详情</view> -->
 							</view>
 						</block>
 						<view class="health-bottom flex-center">
-							<button class="health-btn">取消预约</button>
+							<button class="health-btn" @click="reserveCancel($event,i)">取消预约</button>
 						</view>
 					</template>
 				</view>
@@ -82,7 +82,7 @@
 				}, {
 					name: '待支付'
 				}, {
-					name: '待使用'
+					name: '可使用'
 				}, {
 					name: '预约中'
 				}],
@@ -108,6 +108,44 @@
 			}
 		},
 		methods: {
+			itemCheck(e) {
+				const idx = e.currentTarget.dataset.index;
+				this.reserveList[idx].selected = !this.reserveList[idx].selected;
+			},
+			convertReserveTime(i){
+				return `${i.reserve_date.slice(0,10)} ${i.reserve_time[0]}:00~${i.reserve_time[1]}:00`
+			},
+			reserveCancel(e, i){
+				uni.showModal({
+					title: '提示',
+					content: '是否取消该预约?',
+					success: res => {
+						if (res.confirm) {
+							this.http.post(HEALTH_API.reserve_cancel, {
+								reserve_id: i.reserve_id,
+								reserve_record: i.reserve_record
+							}).then(({
+								data: {
+									data,
+									code
+								}
+							}) => {
+								if (code === 0) {
+									uni.showToast({
+										title: '取消预约成功!'
+									})
+									setTimeout(i => {
+										uni.redirectTo({
+											url: '/pages/mine/order?cur=3'
+										})
+									}, 1500)
+								}
+							})
+				
+						}
+					}
+				});
+			},
 			orderPay(e) {
 				const orderItem = this.orderList[e.currentTarget.dataset.index]
 				uni.showModal({
@@ -156,7 +194,12 @@
 					}
 				}) => {
 					if (code === 0) {
-						this.reserveList = data;
+						this.reserveList = data.filter(i=>{
+							return !i.reserve_cancel;
+						}).map(i=>{
+							i.selected = false
+							return i;
+						});
 					}
 				})])
 			},
