@@ -99,12 +99,5 @@
 </script>
 
 <style lang="scss">
-	$btn-width: 60px;
-	.health-appoint-btn{
-		width: $btn-width;
-		height: $btn-width;
-		border-radius: 50%;
-		line-height: $btn-width;
-		padding: 0;
-	}
+	
 </style>

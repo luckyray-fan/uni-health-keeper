@@ -7,7 +7,7 @@
 					<view style="display: flex;flex-direction: column;margin-left: 12px;">
 						<view>{{data.comment_user.user_data.nick}}</view>
 						<view>
-							{{data.comment_add_time.slice(0, 10)}}
+							{{formatDate(data.comment_add_time)}}
 						</view>
 					</view>
 				</view>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+	import {formatDate} from '@/utils/index.js'
 	export default {
 		name: 'comment',
 		props: {
@@ -34,7 +35,9 @@
 			}
 		},
 		data() {
-			return {}
+			return {
+				formatDate
+			}
 		},
 		methods: {
 

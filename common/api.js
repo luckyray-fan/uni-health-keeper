@@ -9,7 +9,8 @@ const HEALTH_API = {
 	order_pay: 'order/pay',
 	reserve_list: 'reserve/list',
 	reserve_cancel: 'reserve/cancel',
-	record_list: 'record/list'
+	record_list: 'record/list',
+	comment: 'comment'
 }
 
 Object.keys(HEALTH_API).map(i => {

@@ -74,11 +74,11 @@
 		computed: {
 			weatherPic() {
 				if (this.liveData.weather) {
-					if (this.liveData.weather.includes('晴'))
+					if (/晴/.test(this.liveData.weather))
 						return '../../static/sun.png'
-					if (this.liveData.weather.includes('雨'))
+					if (/雨/.test(this.liveData.weather))
 						return '../../static/umbrella.png'
-					if (this.liveData.weather.includes('阴'))
+					if (/阴|云/.test(this.liveData.weather))
 						return '../../static/cloud.png'
 				}
 			}
@@ -102,11 +102,11 @@
 			},
 			toLogin: () => {
 				// uni.navigateTo({
-				//     url: '/pages/mine/order'
+				//     url: '/pages/mine/comment'
 				// });
-				// uni.switchTab({
-				// 	url: '/pages/goods/index'
-				// })
+				uni.switchTab({
+					url: '/pages/mine/index'
+				})
 			}
 		}
 	}

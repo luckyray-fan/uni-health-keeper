@@ -15,7 +15,7 @@
 										<view style="color: #4CD964;">
 											支付完成
 										</view>
-										<image class="image-size-30" src="../../static/order_complete.png"></image>
+										<image class="image-size-30" src="../../static/order_complete.png" @click="handleRefund($event, orderItem)"></image>
 									</template>
 									<template v-else>
 										<view style="color: #ff0000;">
@@ -49,7 +49,7 @@
 							</view>
 						</block>
 						<view class="health-bottom flex-center">
-							<button class="health-btn" @click="reserveCancel($event,i)">取消预约</button>
+							<button class="health-btn" @click="reserveCancel">取消预约</button>
 						</view>
 					</template>
 				</view>
@@ -108,6 +108,36 @@
 			}
 		},
 		methods: {
+			handleRefund(e, item){
+				uni.showModal({
+					title: '提示',
+					content: '是否退款?',
+					success: res => {
+						if (res.confirm) {
+							this.http.post(HEALTH_API.reserve_cancel, {
+								reserves
+							}).then(({
+								data: {
+									data,
+									code
+								}
+							}) => {
+								if (code === 0) {
+									uni.showToast({
+										title: '退款成功!'
+									})
+									setTimeout(i => {
+										uni.redirectTo({
+											url: '/pages/mine/order?cur=3'
+										})
+									}, 1500)
+								}
+							})
+				
+						}
+					}
+				});
+			},
 			itemCheck(e) {
 				const idx = e.currentTarget.dataset.index;
 				this.reserveList[idx].selected = !this.reserveList[idx].selected;
@@ -115,15 +145,15 @@
 			convertReserveTime(i){
 				return `${i.reserve_date.slice(0,10)} ${i.reserve_time[0]}:00~${i.reserve_time[1]}:00`
 			},
-			reserveCancel(e, i){
+			reserveCancel(){
+				const reserves = this.reserveList.filter(i=>i.selected)
 				uni.showModal({
 					title: '提示',
 					content: '是否取消该预约?',
 					success: res => {
 						if (res.confirm) {
 							this.http.post(HEALTH_API.reserve_cancel, {
-								reserve_id: i.reserve_id,
-								reserve_record: i.reserve_record
+								reserves
 							}).then(({
 								data: {
 									data,

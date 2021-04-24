@@ -8,8 +8,9 @@
 			<view @click="navigateLogin" style="flex:1" class="flex-center">
 				<view>
 					<image
-						:src="user_data.avatar||'http://img.luckyray.cn/wxb1eb11cbeccb04cf.o6zAJsyTls2wZLWjdzVk8WlvhrLk.d8cXgV2v09EL739297c3ec0f727c32c8135aca85df15.png'" style="margin: 0 auto;">
-						
+						:src="user_data.avatar||'http://img.luckyray.cn/wxb1eb11cbeccb04cf.o6zAJsyTls2wZLWjdzVk8WlvhrLk.d8cXgV2v09EL739297c3ec0f727c32c8135aca85df15.png'"
+						style="margin: 0 auto;">
+
 					</image>
 					<view style="text-align: center;" v-if="user_data.nick">{{user_data.nick}}</view>
 					<view style="text-align: center;" v-else>请点击头像登录</view>
@@ -25,8 +26,7 @@
 		</view>
 		<view style="margin-top: 5px;">
 			<!-- 显示图标 -->
-			<uni-notice-bar speed="30" scrollable="true" showIcon="true"
-				text="尊敬的李先生，您预约的冯国明健身课程已过期，请留意~  尊敬的李先生，您预约的篮球课程即将开课，记得准时赴约哦~"></uni-notice-bar>
+			<uni-notice-bar speed="30" scrollable="true" showIcon="true" :text="noticeText"></uni-notice-bar>
 		</view>
 		<view class="health-block">
 			<view>
@@ -54,7 +54,7 @@
 						</uni-grid-item>
 						<uni-grid-item class="health-home-grid-item" index="5">
 							<uni-icons type="loop" size="30"></uni-icons>
-							<view class="text">退款/售后</view>
+							<view class="text">退款</view>
 						</uni-grid-item>
 					</uni-grid>
 				</view>
@@ -84,12 +84,15 @@
 </template>
 
 <script>
+	import HEALTH_API from '@/common/api.js'
 	export default {
 		data() {
 			return {
 				title: '卧槽尼玛',
 				user_data: '',
-				user: ''
+				user: '',
+				reserve: '',
+				noticeText: '暂无最新预约消息'
 			}
 		},
 		onLoad() {
@@ -99,14 +102,40 @@
 				...this.user_data,
 				...(user.user_data || {})
 			}
+			this.getReserve()
 		},
 		methods: {
-			navigateLogin(){
+			async getReserve() {
+				await this.http.get(HEALTH_API.reserve_list).then(({
+					data: {
+						data,
+						code
+					}
+				}) => {
+					if (code === 0) {
+						this.reserve = data;
+						const res = data.sort((i, j) => {
+							const time = [i, j].map(x => {
+								x.time = new Date(x.reserve_date + ' ' + x.reserve_time +
+									":00").getTime();
+								return x.time;
+							});
+							return time[0] - time[1];
+						})
+						// 小于一天的话就显示
+						if (res[0].time - new Date().getTime() <= 24 * 60 * 60 * 1000) {
+							this.noticeText =
+								`尊敬的${user_data.nick}, 您预约的${res[0].service.service_name}即将开始, 请注意时间 ~`
+						}
+					}
+				})
+			},
+			navigateLogin() {
 				uni.navigateTo({
 					url: '/pages/login/index'
 				})
 			},
-			navigateUse(){
+			navigateUse() {
 				uni.navigateTo({
 					url: '/pages/mine/use_product'
 				})

@@ -159,6 +159,22 @@ page{
 	border-radius: 20px;
 	margin: 8px;
 }
+$btn-width: 60px;
+	.health-appoint-btn{
+		width: $btn-width;
+		height: $btn-width;
+		border-radius: 50%;
+		line-height: $btn-width;
+		padding: 0;
+	}
+.health-btn-sm{
+	font-size: 14px;
+	padding: 0px 5px;
+	    line-height: 30px;
+	    height: 30px;
+	    margin: 0;
+	@extend .health-btn
+}
 .health-btn-no-margin{
 	@extend .health-btn;
 	margin:0;
@@ -171,6 +187,13 @@ page{
 	margin: 10px;
 	@extend .health-btn-200
 }
+.health-textarea{
+	border: 1px solid lightgray;
+	&:active{
+		border: 1px solid #007AFF;
+	}
+}
+
 .line{
 	border-bottom:1px solid #E5E5E5 ;
 }

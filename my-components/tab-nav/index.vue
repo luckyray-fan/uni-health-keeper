@@ -1,11 +1,11 @@
 <template>
-	<view>
+	<view style="height: 100%;">
 		<wuc-tab :textFlex="true" :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange" tabClass="health-tab">
 		</wuc-tab>
-		<swiper :current="TabCur" duration="300" @change="swiperChange" style="flex:1">
+		<swiper :current="TabCur" duration="300" @change="swiperChange" style="flex:1;height: 100%;">
 			<swiper-item v-for="(item,index) in tabList" :key="index" >
 				<template>
-					<slot :dataItem="dataList[index]" :idx="{index}"></slot>
+					<slot :dataItem="dataList" :idx="index"></slot>
 				</template>
 			</swiper-item>
 		</swiper>
@@ -20,7 +20,8 @@
 				type: Array
 			},
 			dataList: {
-				type: Object
+				type: Array,
+				default: []
 			}
 		},
 		data() {
