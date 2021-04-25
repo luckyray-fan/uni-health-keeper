@@ -102,11 +102,11 @@
 			},
 			toLogin: () => {
 				// uni.navigateTo({
-				//     url: '/pages/mine/comment'
+				//     url: '/pages/cart/index'
 				// });
-				uni.switchTab({
-					url: '/pages/mine/index'
-				})
+				// uni.switchTab({
+				// 	url: '/pages/mine/index'
+				// })
 			}
 		}
 	}

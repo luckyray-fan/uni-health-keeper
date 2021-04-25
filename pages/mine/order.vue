@@ -5,9 +5,8 @@
 		<swiper :current="TabCur" duration="300" @change="swiperChange" style="flex:1">
 			<swiper-item v-for="(item,index) in tabList" :key="index">
 				<view class="">
-					<template v-if="index!==3">
 						<block
-							v-for="(orderItem,orderIndex) in orderList.filter(i=>(i.order_status===index||index===0))"
+							v-for="(orderItem,orderIndex) in getListWithIdx(index)"
 							:key="orderIndex">
 							<order-item :spuList="orderItem.order_data.spuList">
 								<view class="health-line" style="padding: 0 10px;">
@@ -15,43 +14,23 @@
 										<view style="color: #4CD964;">
 											支付完成
 										</view>
-										<image class="image-size-30" src="../../static/order_complete.png" @click="handleRefund($event, orderItem)"></image>
+										<image class="image-size-30" src="../../static/order_complete.png" @click="handleRefund" :data-index="index"></image>
 									</template>
-									<template v-else>
+									<template v-if="orderItem.order_status === 1">
 										<view style="color: #ff0000;">
 											尚未支付
 										</view>
 										<button class="health-btn-no-margin" @click="orderPay"
 											:data-index="orderIndex">立即支付</button>
 									</template>
+									<template v-if="orderItem.order_status === 3">
+										<view style="color: #F0AD4E;">
+											已退款
+										</view>
+									</template>
 								</view>
 							</order-item>
 						</block>
-					</template>
-					<template v-else>
-						<view class="health-flex text-center health-block">
-							<view class="flex-1">
-
-							</view>
-							<view class="flex-4">预约项目</view>
-							<view class="flex-4">开始时间</view>
-							<!-- <view class="flex-1">操作</view> -->
-						</view>
-						<block v-for="(i, idx) in reserveList" :key="idx">
-							<view class="health-flex health-block text-center">
-								<view class="flex-1">
-									<radio color="#64EDAC" :checked="i.selected" @click="itemCheck" :data-index="idx">
-									</radio>
-								</view>
-								<view class="flex-4">{{i.service.service_name}}</view>
-								<view class="flex-4">{{convertReserveTime(i)}}</view>
-								<!-- <view class="flex-1">详情</view> -->
-							</view>
-						</block>
-						<view class="health-bottom flex-center">
-							<button class="health-btn" @click="reserveCancel">取消预约</button>
-						</view>
-					</template>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -84,42 +63,30 @@
 				}, {
 					name: '可使用'
 				}, {
-					name: '预约中'
+					name: '已退款'
 				}],
-				orderList: {
-					0: [{
-						spu_name: '成人全套套餐评估',
-						spu_pic: 'https://img13.360buyimg.com/n7/jfs/t1/27652/18/12464/928612/5c985ce1Eaa45fcdb/1fb4aa796250c8b6.png',
-						spu_add_time: '2021-01-22',
-						spu_price: '2000',
-						num: 1,
-						selected: false
-					}],
-					3: [{
-						spu_name: '成人全套套餐评估',
-						spu_pic: 'https://img13.360buyimg.com/n7/jfs/t1/27652/18/12464/928612/5c985ce1Eaa45fcdb/1fb4aa796250c8b6.png',
-						spu_add_time: '2021-01-22',
-						order_date: '2021-01-22 11:00',
-						spu_price: '2000',
-						num: 1,
-						selected: false
-					}]
-				}
+				orderList: []
 			}
 		},
 		methods: {
-			handleRefund(e, item){
+			getListWithIdx(index){
+				return this.orderList.filter(i=>i.order_status===index||index===0)
+			},
+			handleRefund(e){
+				const idx = e.currentTarget.dataset.index;
+				const item = this.orderList[idx];
 				uni.showModal({
 					title: '提示',
 					content: '是否退款?',
 					success: res => {
 						if (res.confirm) {
-							this.http.post(HEALTH_API.reserve_cancel, {
-								reserves
+							this.http.post(HEALTH_API.order_refund, {
+								...item
 							}).then(({
 								data: {
 									data,
-									code
+									code,
+									msg
 								}
 							}) => {
 								if (code === 0) {
@@ -131,6 +98,11 @@
 											url: '/pages/mine/order?cur=3'
 										})
 									}, 1500)
+								}else{
+									uni.showToast({
+										title: msg,
+										icon: 'none'
+									})
 								}
 							})
 				

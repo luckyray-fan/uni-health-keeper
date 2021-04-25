@@ -1,8 +1,8 @@
 <template>
 	<view v-if="cartList.length">
-		<view class="health-cart-delall">清空所有商品</view>
+		<view class="health-cart-delall" @click="clearSelect">清空选定商品</view>
 		<block v-for="(item,index) in cartList" :key="index">
-			<view class="health-spu health-block">
+			<view class="health-spu health-block" style="position: relative;">
 				<view>
 					<radio color="#64EDAC" :checked="item.selected" @click="itemCheck" :data-index="index"></radio>
 				</view>
@@ -11,13 +11,11 @@
 				</view>
 				<view class="health-spu-desc">
 					<view class="health-spu-top">{{item.spu_name}}</view>
-					<view class="health-spu-middle">{{item.spu_add_time}}</view>
+					<view class="health-spu-middle">{{item.spu_add_time.slice(0,10)}}</view>
 					<view class="health-spu-bottom">￥{{item.spu_price}}</view>
 				</view>
-				<view class="health-spu-right">
-					<view>
-						<count :num="item.num" @change="countChange($event, index)"></count>
-					</view>
+				<view style="position: absolute;right: 5px;bottom: 5px;">
+					<count :num="item.num" @change="countChange($event, index)"></count>
 				</view>
 			</view>
 		</block>
@@ -33,7 +31,7 @@
 						{{sumPrice}}
 					</text>
 				</view>
-				<button class="health-bottom-btn">结算</button>
+				<button class="health-bottom-btn" @click="goOrder">结算</button>
 			</view>
 		</view>
 	</view>
@@ -51,45 +49,78 @@
 <script>
 	import count from '@/my-components/count/index.vue'
 	export default {
-		components:{
+		components: {
 			count
 		},
 		data() {
 			return {
 				cartList: [],
-				sumPrice: 0,
 				isCheckAll: false
 			}
 		},
 		onLoad() {
-			this.cartList = uni.getStorageSync('cart') || [{
-				spu_name: '成人全套套餐评估',
-				spu_pic: 'https://img13.360buyimg.com/n7/jfs/t1/27652/18/12464/928612/5c985ce1Eaa45fcdb/1fb4aa796250c8b6.png',
-				spu_add_time: '2021-01-22',
-				spu_price: '2000',
-				num: 1,
-				selected: false
-			}];
+			this.cartList = uni.getStorageSync('cart');
 		},
 		computed: {
-
+			selectArr() {
+				return this.cartList.filter(i => i.selected)
+			},
+			sumPrice() {
+				let tem = 0;
+				this.selectArr.map(i => tem += +i.spu_price*i.num)
+				return tem;
+			}
 		},
 		methods: {
+			goOrder() {
+				if (this.selectArr.length === 0) {
+					uni.showToast({
+						title: '请先选择要购买的商品',
+						icon: 'none'
+					})
+					return;
+				}
+				const tem = this.selectArr.map(i => {
+					return {
+						id: i.spu_id,
+						num: i.num
+					}
+				})
+				uni.navigateTo({
+					url: '/pages/order/index?spuIdList=' + JSON.stringify(tem)
+				})
+			},
 			itemCheck(e) {
 				const idx = e.currentTarget.dataset.index;
 				this.cartList[idx].selected = !this.cartList[idx].selected;
+				this.cartList = [...this.cartList]
 				this.isCheckAll = this.cartList.every(i => i.selected);
 			},
 			checkAllChange() {
 				this.isCheckAll = !this.isCheckAll;
 				this.cartList.map(i => i.selected = this.isCheckAll)
 			},
+			clearSelect() {
+				const notSelected = this.cartList.filter(i => !i.selected);
+				if (this.selectArr.length === 0) {
+					uni.showToast({
+						title: '请先选择要清除的商品',
+						icon: 'none'
+					})
+					return;
+				}
+				uni.setStorageSync('cart', notSelected);
+				uni.showToast({
+					title: '清除成功'
+				})
+				this.cartList = uni.getStorageSync('cart');
+			},
 			navigateGoods() {
 				uni.switchTab({
 					url: '/pages/goods/index'
 				})
 			},
-			countChange(num, idx){
+			countChange(num, idx) {
 				this.cartList[idx].num = num;
 			}
 		}
@@ -104,7 +135,7 @@
 		height: $image-size;
 	}
 
-	
+
 
 	.health-bottom {
 
@@ -149,7 +180,7 @@
 		align-items: center;
 
 		&-text {
-			color: #007AFF;
+			color: #F0AD4E;
 			font-size: 18px;
 			display: inline-block;
 		}

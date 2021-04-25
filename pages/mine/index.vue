@@ -35,7 +35,7 @@
 					<view @click="navigateOrder">查看全部订单</view>
 				</view>
 				<view>
-					<uni-grid :column="5" :showBorder="false" :square="true" @change="gridItemClick">
+					<uni-grid :column="4" :showBorder="false" :square="false" @change="gridItemClick">
 						<uni-grid-item class="health-home-grid-item" index="1">
 							<uni-icons type="shop" size="30" color="#64EDAC"></uni-icons>
 							<view class="text">待支付</view>
@@ -44,10 +44,7 @@
 							<uni-icons type="paperclip" size="30"></uni-icons>
 							<view class="text">待使用</view>
 						</uni-grid-item>
-						<uni-grid-item class="health-home-grid-item" index="3">
-							<uni-icons type="star" size="30"></uni-icons>
-							<view class="text">预约中</view>
-						</uni-grid-item>
+						
 						<uni-grid-item class="health-home-grid-item" index="4">
 							<uni-icons type="compose" size="30"></uni-icons>
 							<view class="text">待评价</view>
@@ -67,10 +64,14 @@
 					<view @click="navigateUse">可用产品查询</view>
 				</view>
 				<view>
-					<uni-grid :column="2" :showBorder="false" :square="false" @change="gridItemClick">
+					<uni-grid :column="3" :showBorder="false" :square="false" @change="gridItemClick">
 						<uni-grid-item class="health-home-grid-item" index="9">
 							<uni-icons type="map" size="30"></uni-icons>
 							<view class="text">预约记录</view>
+						</uni-grid-item>
+						<uni-grid-item class="health-home-grid-item" index="3">
+							<uni-icons type="star" size="30"></uni-icons>
+							<view class="text">预约中</view>
 						</uni-grid-item>
 						<uni-grid-item class="health-home-grid-item" index="10">
 							<uni-icons type="flag" size="30"></uni-icons>
@@ -151,10 +152,11 @@
 					0: '/pages/mine/order?cur=',
 					1: '/pages/mine/order?cur=1',
 					2: '/pages/mine/order?cur=2',
-					3: '/pages/mine/order?cur=3',
+					3: '/pages/reserve/index?cur=1',
 					4: '/pages/mine/comment',
+					5: '/pages/mine/order?cur=3',
 					9: '/pages/reserve/index?cur=0',
-					10: '/pages/reserve/index?cur=1',
+					10: '/pages/reserve/index?cur=2',
 				}
 				uni.navigateTo({
 					url: idxToUrl[idx]

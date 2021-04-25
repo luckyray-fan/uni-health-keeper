@@ -10,6 +10,7 @@ const HEALTH_API = {
 	reserve_list: 'reserve/list',
 	reserve_cancel: 'reserve/cancel',
 	record_list: 'record/list',
+	order_refund: 'order/refund',
 	comment: 'comment'
 }
 
