@@ -110,7 +110,8 @@
 					reserve_time: this.selectApparatusTime[this.selectTime],
 					reserve_apparatus: this.service.apparatusArr[this.selectApparatus].apparatus_id,
 					reserve_record: this.record_id,
-					reserve_service: this.service_id
+					reserve_service: this.service_id,
+					reserve_data: {}
 				}).then(({
 					data: {
 						data,

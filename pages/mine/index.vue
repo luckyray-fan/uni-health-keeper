@@ -1,9 +1,9 @@
 <template>
 	<view class="health-page">
 		<view class="health-mine-block health-mine-top" style="padding: 8px 0;">
-			<view style="flex:1">
+			<view style="flex:1" @click="navigateCredit">
 				<uni-icons type="list" size="30"></uni-icons>
-				{{500}}积分
+				{{creditSum}}积分
 			</view>
 			<view @click="navigateLogin" style="flex:1" class="flex-center">
 				<view>
@@ -93,7 +93,8 @@
 				user_data: '',
 				user: '',
 				reserve: '',
-				noticeText: '暂无最新预约消息'
+				noticeText: '暂无最新预约消息',
+				creditSum: 0
 			}
 		},
 		onLoad() {
@@ -104,8 +105,21 @@
 				...(user.user_data || {})
 			}
 			this.getReserve()
+			this.getCredit()
 		},
 		methods: {
+			async getCredit(){
+				this.http.get(HEALTH_API.credit_sum).then(({
+					data: {
+						code,
+						data
+					}
+				}) => {
+					if (code === 0) {
+						this.creditSum = data;
+					}
+				})
+			},
 			async getReserve() {
 				await this.http.get(HEALTH_API.reserve_list).then(({
 					data: {
@@ -144,6 +158,11 @@
 			navigateOrder() {
 				uni.navigateTo({
 					url: '/pages/mine/order?cur=0'
+				})
+			},
+			navigateCredit(){
+				uni.navigateTo({
+					url: '/pages/mine/credit'
 				})
 			},
 			gridItemClick(idx) {

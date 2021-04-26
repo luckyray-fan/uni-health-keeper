@@ -5,6 +5,8 @@ const HEALTH_API = {
 	service: 'service/id',
 	reserve: 'reserve/',
 	order: 'order/',
+	credit_sum: 'credit/sum',
+	credit_list: 'credit/list',
 	order_list: 'order/user',
 	order_pay: 'order/pay',
 	reserve_list: 'reserve/list',

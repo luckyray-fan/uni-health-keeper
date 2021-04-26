@@ -77,7 +77,7 @@
 				const item = this.orderList[idx];
 				uni.showModal({
 					title: '提示',
-					content: '是否退款?',
+					content: '是否退款, 之前使用的积分不会退还',
 					success: res => {
 						if (res.confirm) {
 							this.http.post(HEALTH_API.order_refund, {
