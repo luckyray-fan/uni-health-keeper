@@ -18,9 +18,9 @@
 				</scroll-view>
 			</view>
 		</view>
-		<view class="health-block">
+		<view class="">
 			<block v-for="(item,index) in spuList" :key="index">
-				<view class="health-spu" @click="showSpu" :data-index="index">
+				<view class="health-spu health-block" @click="showSpu" :data-index="index">
 					<view >
 						<image :src="item.spu_pic" class="health-spu-image"></image>
 					</view>

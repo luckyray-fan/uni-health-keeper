@@ -3,7 +3,7 @@
 		<view>
 			<uni-swiper-dot :info="info" :current="current" field="content" mode="round">
 				<swiper class="swiper-box" @change="change" autoplay="true">
-					<swiper-item v-for="(item ,index) in spu.spu_data.other_pics" :key="index">
+					<swiper-item v-for="(item ,index) in spu.spu_data.other_pics.concat(spu.spu_pic)" :key="index">
 						<view class="swiper-item">
 							<image :src="item"></image>
 						</view>
@@ -22,7 +22,9 @@
 		<view class="health-block">
 			<view class="health-goods-info-line">
 				<view>包含服务</view>
-				<view>{{spu.spu_data.spu_service}}</view>
+				<view v-for="(item ,index) in spu.spu_service" :key="index">
+					- {{convert(item)}}
+				</view>
 			</view>
 		</view>
 		<view class="health-block">
@@ -36,7 +38,7 @@
 				可获积分
 			</view>
 			<view>
-				{{spu.spu_data.credit || 0 }}积分
+				{{spu.spu_credit || 0 }}积分
 			</view>
 		</view>
 		<view class="health-block">
@@ -113,6 +115,9 @@
 			}
 		},
 		methods: {
+			convert(i){
+				return Object.values(i)[0].service_name
+			},
 			showComment() {
 				this.commentLen = -1;
 			},

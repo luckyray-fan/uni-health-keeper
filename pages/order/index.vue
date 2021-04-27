@@ -134,13 +134,13 @@
 							}) => {
 								if (code === 0) {
 									uni.showToast({
-										title: '订单提交成功, 即将跳转至我的订单'
+										title: '订单提交成功'
 									})
 									setTimeout(i => {
 										uni.navigateTo({
 											url: '/pages/mine/order'
 										})
-									}, 2000)
+									}, 1500)
 								}
 							})
 

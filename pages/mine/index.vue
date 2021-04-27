@@ -20,8 +20,8 @@
 				<navigator url="/pages/mine/info">
 					<uni-icons type="gear" size="30"></uni-icons>
 				</navigator>
-				<view>教练注册</view>
-				<view>教练入口</view>
+				<view @click="navigateCoachRegister">教练注册</view>
+				<view @click="navigateCoach">教练入口</view>
 			</view>
 		</view>
 		<view style="margin-top: 5px;">
@@ -163,6 +163,16 @@
 			navigateCredit(){
 				uni.navigateTo({
 					url: '/pages/mine/credit'
+				})
+			},
+			navigateCoachRegister(){
+				uni.navigateTo({
+					url: '/pages/coach/register'
+				})
+			},
+			navigateCoach(){
+				uni.navigateTo({
+					url: '/pages/coach/index'
 				})
 			},
 			gridItemClick(idx) {

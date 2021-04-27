@@ -77,6 +77,12 @@
 			}
 		},
 		{
+			"path": "pages/coach/register",
+			"style": {
+				"navigationBarTitleText": "教练注册"
+			}
+		},
+		{
 			"path": "pages/service/index",
 			"style": {
 				"navigationBarTitleText": "服务预约",

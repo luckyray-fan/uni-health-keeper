@@ -3,7 +3,7 @@
 		<wuc-tab :textFlex="true" :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange" tabClass="health-tab">
 		</wuc-tab>
 		<swiper :current="TabCur" duration="300" @change="swiperChange" style="flex:1">
-			<swiper-item v-for="(item,index) in tabList" :key="index">
+			<swiper-item v-for="(item,index) in tabList" :key="index" style="overflow: auto">
 				<view class="">
 						<block
 							v-for="(orderItem,orderIndex) in getListWithIdx(index)"
