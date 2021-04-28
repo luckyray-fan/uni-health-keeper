@@ -77,6 +77,10 @@
 			}
 		},
 		onLoad(opt) {
+			uni.showModal({
+				title: '提示',
+				content: '仅限未使用过的用户, 一个手机号一次'
+			})
 			this.getService(this.service_id)
 		},
 		async onPullDownRefresh() {

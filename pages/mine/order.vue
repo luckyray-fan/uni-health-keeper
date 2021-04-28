@@ -14,7 +14,7 @@
 										<view style="color: #4CD964;">
 											支付完成
 										</view>
-										<image class="image-size-30" src="../../static/order_complete.png" @click="handleRefund" :data-index="index"></image>
+										<image class="image-size-30" src="../../static/order_complete.png" @click="handleRefund" :data-index="orderIndex"></image>
 									</template>
 									<template v-if="orderItem.order_status === 1">
 										<view style="color: #ff0000;">

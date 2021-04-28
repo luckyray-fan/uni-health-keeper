@@ -13,7 +13,7 @@
 
 					</image>
 					<view style="text-align: center;" v-if="user_data.nick">{{user_data.nick}}</view>
-					<view style="text-align: center;" v-else>请点击头像登录</view>
+					<button class="health-btn" @tap="getUserProfile" v-else style="width: 120px;"> 请点击登录 </button>
 				</view>
 			</view>
 			<view style="flex:1;text-align: right;">
@@ -89,7 +89,6 @@
 	export default {
 		data() {
 			return {
-				title: '卧槽尼玛',
 				user_data: '',
 				user: '',
 				reserve: '',
@@ -97,8 +96,13 @@
 				creditSum: 0
 			}
 		},
-		onLoad() {
+		onShow() {
 			const user = uni.getStorageSync('user');
+			if(!user){
+				this.user = {};
+				this.user_data = {}
+				return;
+			}
 			this.user = user.user;
 			this.user_data = {
 				...this.user_data,
@@ -107,7 +111,51 @@
 			this.getReserve()
 			this.getCredit()
 		},
+		onLoad() {
+			const user = uni.getStorageSync('user');
+			if(!user){
+				this.user = {};
+				this.user_data = {}
+				return;
+			}
+			this.user = user.user;
+			this.user_data = {
+				...this.user_data,
+				...(user.user_data || {})
+			}
+			this.getReserve()
+			this.getCredit()
+			console.log('123',this.$store.state.isWx)
+		},
+		async onPullDownRefresh() {
+			await this.getReserve()
+			await this.getCredit()
+			uni.stopPullDownRefresh()
+		},
 		methods: {
+			getUserProfile(e) {
+			    wx.getUserProfile({
+			      desc: '用于登录注册, 完善会员资料', 
+			      success: (res) => {
+					  uni.login({
+					    provider: 'weixin',
+					    success: (loginRes)=> {
+					      this.http.post(HEALTH_API.wx_login, {...loginRes, ...res}).then(({data:{code,data}})=>{
+							  if(code === 0){
+								 uni.setStorageSync('jwtToken', data.token)
+								 uni.setStorageSync('user', data.payload)
+								 uni.showToast({ 
+								     title: '登录成功',
+								 });
+								 this.user = data.payload;
+								 this.user_data = data.payload.user_data
+							  }
+						  })
+					    }
+					  });
+			      }
+			    })
+			  },
 			async getCredit(){
 				this.http.get(HEALTH_API.credit_sum).then(({
 					data: {
@@ -146,9 +194,10 @@
 				})
 			},
 			navigateLogin() {
-				uni.navigateTo({
-					url: '/pages/login/index'
-				})
+				
+				// uni.navigateTo({
+				// 	url: '/pages/login/index'
+				// })
 			},
 			navigateUse() {
 				uni.navigateTo({

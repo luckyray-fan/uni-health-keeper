@@ -1,5 +1,6 @@
 const HEALTH_API = {
 	spu_list: 'spu/list',
+	wx_login: 'user/wxlogin',
 	spu: 'spu/id',
 	spu_ids: 'spu/ids',
 	service: 'service/id',

@@ -7,9 +7,9 @@
 		</view>
 		<block v-for="(i, idx) in creditList" :key="idx" v-if="creditList.length">
 			<view class="health-flex health-block text-center">
-				<view class="flex-4">{{i.service.service_name}}</view>
-				<view class="flex-4">{{convertReserveTime(i)}}</view>
-				<view class="flex-2">详情</view>
+				<view class="flex-4">{{i.credit_add_time.slice(0,10)}}</view>
+				<view class="flex-4">{{i.spu.spu_name}}</view>
+				<view class="flex-2">{{i.credit_num}}</view>
 			</view>
 		</block>
 		<view v-if="creditList.length === 0" class="health-block">
