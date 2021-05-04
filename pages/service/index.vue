@@ -17,7 +17,7 @@
 		</view>
 		<view class="health-block">
 			<view class="health-appoint-title">请选择预约时间</view>
-			<view style="text-align: center;margin: 15px;">仪器: {{service.service_name}}</view>
+			<view style="text-align: center;margin: 15px;">仪器: {{service.apparatusArr[0].apparatus_name}}</view>
 			<view class="flex-center">
 				<block v-for="(item,index) in service.service_apparatus" :key="index">
 					<view :class="'health-appoint-time-item health-view-btn '+(selectApparatus === index?'active':'')"
@@ -124,7 +124,7 @@
 						})
 						setTimeout(i=>{
 							uni.navigateTo({
-								url: '/pages/mine/order?cur=3'
+								url: '/pages/reserve/index'
 							})
 						}, 2000)
 					}

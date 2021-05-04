@@ -31,6 +31,7 @@
 					</view>
 				</view>
 			</block>
+			<view style="color: #cecbcb; text-align: center;">——— 没有更多了 ———</view>
 			<view v-if="spuList.length === 0">
 				<no-data></no-data>
 			</view>

@@ -102,7 +102,7 @@
 			},
 			toLogin: () => {
 				// uni.navigateTo({
-				//     url: '/pages/cart/index'
+				//     url: '/pages/archive/report?reserve_id=5'
 				// });
 				// uni.switchTab({
 				// 	url: '/pages/mine/index'

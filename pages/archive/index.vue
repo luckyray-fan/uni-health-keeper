@@ -5,10 +5,12 @@
 		<swiper :current="TabCur" duration="300" @change="swiperChange" style="flex:1">
 			<swiper-item v-for="(item,index) in tabList" :key="index">
 				<view class="health-block">
-					<view class="health-line">
-						<view> 健康检查 - 2021-01-22</view>
-						<view @tap="navigateReport">查看更多></view>
-					</view>
+					<block v-for="(i, idx) in reserveResList" :key="idx">
+						<view class="health-line">
+							<view> {{i.service.service_name}} - {{i.reserve_date}}</view>
+							<view @tap="navigateReport" :data-index="idx">查看更多></view>
+						</view>
+					</block>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -22,8 +24,6 @@
 			return {
 				tabList: [{
 					name: '全部'
-				}, {
-					name: '血液常规'
 				}],
 				reserveResList: []
 			}
@@ -48,9 +48,10 @@
 					}
 				})
 			},
-			navigateReport() {
+			navigateReport(e) {
+				const idx = e.currentTarget.dataset.index;
 				uni.navigateTo({
-					url: '/pages/archive/report'
+					url: '/pages/archive/report?reserve_id='+this.reserveResList[idx].reserve_id
 				})
 			}
 		}

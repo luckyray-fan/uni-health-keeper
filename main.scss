@@ -152,12 +152,27 @@ page{
 		border: 1px solid #64EDAC;
 	}
 }
+.health-title-back{
+	background: linear-gradient(to bottom, rgba(143, 226, 187 ,.28), #fff, #fff, #fff) !important;
+}
 .health-btn{
 	font-size: 16px;
 	color: #fff;
 	background-color: #64EDAC;
 	border-radius: 20px;
 	margin: 8px;
+}
+.health-report-column{
+	width: 48%;
+	display: inline-block;
+}
+.health-report-content{
+	padding: 15px 0;
+}
+.health-bottom-line{
+	margin: 0 auto;
+	height: 5px;
+	border-bottom: 1px solid #e6e6e6;
 }
 $btn-width: 60px;
 	.health-appoint-btn{
@@ -186,6 +201,9 @@ $btn-width: 60px;
 .health-btn-margin-200 {
 	margin: 10px;
 	@extend .health-btn-200
+}
+.health-sm-font{
+	font-size: 14px;color: #C0C4CC;
 }
 .health-textarea{
 	border: 1px solid lightgray;

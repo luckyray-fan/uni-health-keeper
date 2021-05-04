@@ -117,7 +117,8 @@
 		{
 			"path": "pages/archive/report",
 			"style": {
-				"navigationBarTitleText": "报告查看"
+				"navigationBarTitleText": "报告查看",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
